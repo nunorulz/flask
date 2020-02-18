@@ -1,5 +1,6 @@
 from app import db
 
+
 class User(db.Model):
     __tablename__ = "users"
 
@@ -17,3 +18,24 @@ class User(db.Model):
 
     def __repr__(self):
         return "<User %r>" % self.username
+
+class Post(db.Model):
+    __tablename__ = "posts"
+
+    id = db.Column(db.Integer, primary_key=True)
+    content = db.Column(db.Text)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
+    user = db.relationship('User', content, user_id):
+
+    def __init__(self, content, user_id):
+        self.content = content
+        self.user_id = user_id
+    
+    def __repr__(self):
+        return "<Post %r>" % self.id
+
+class Follow(db.Model):
+    __tablename__ = "follow"
+
+    id = db.Column(db.Integer)
